@@ -2,9 +2,37 @@ $(function() {
   console.log("Leader");
   var socket = io();
 
-  $('#foo').on('click', function(){
+  $('#start2').on('click', function(){
     console.log("Emitting");
-    socket.emit('foo', 'click');
+    socket.emit('follower', {cmd: 'start', song: 't2888593'});
+  });
+
+  $('#stop2').on('click', function(){
+    console.log("Emitting");
+    socket.emit('follower', {cmd: 'stop'});
+  });
+
+  var emitVol = function(e) {
+    console.log("Emitting");
+    socket.emit('follower', {cmd: 'vol', vol: $(e.target).slider('value') / 100});
+  }
+
+  $('#vol').slider({
+    max: 100,
+    value: 100,
+    change: emitVol,
+    slide: emitVol
+  });
+
+
+  $('#vol').on('change', function(e){
+    console.log("Emitting");
+    socket.emit('follower', {cmd: 'vol', vol: $(e.target).val() / 100});
+  });
+
+  $('#vol100').on('click', function(){
+    console.log("Emitting");
+    socket.emit('follower', {cmd: 'vol', vol: 1.00});
   });
 
   $( "#track1" ).autocomplete({

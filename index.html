@@ -10,10 +10,21 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/public/common.js"></script>
     <script src="/public/leader.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    
   </head>
   <body>
     <h3>Leader DJ</h3>
-    <button id="foo">Foo</button>
+    <button id="start1">Start 1</button>
+    <button id="stop1">Stop 1</button>
+
+    <button id="start2">Start 2</button>
+    <button id="stop2">Stop 2</button>
+    <button id="vol25">Vol 25%</button>
+    <button id="vol100">Vol 100%</button>
+    Vol: <div id="vol"></div>
+
+
     <div id="api"></div>
     Track1: <input id="track1">
   </body>

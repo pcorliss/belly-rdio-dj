@@ -1,9 +1,8 @@
 $(function() {
   var initRdio = function(){
-    rdio = $('#api').rdio($.cookie('playback'));
+    window.rdio = $('#api').rdio($.cookie('playback'));
     $('#api').bind('ready.rdio', function(event, userInfo) {
       console.log("Rdio Ready!");
-      
       //rdio.play('a997982');
     });
   };
