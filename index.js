@@ -39,6 +39,16 @@ app.get('/get_token', function(req, res){
   });
 });
 
+// This would be easier if the API used JSONP
+app.get('/track_search_proxy', function(req, res){
+  request(
+    'http://rdio-service.herokuapp.com/search?type=track&q=' + req.query.term,
+    function (error, response, body) {
+      res.send(body)
+    }
+  );
+});
+
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });

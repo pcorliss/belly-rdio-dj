@@ -1,6 +1,11 @@
 $(function() {
   var initRdio = function(){
-    $('#api').rdio(m.data.token)
+    rdio = $('#api').rdio($.cookie('playback'));
+    $('#api').bind('ready.rdio', function(event, userInfo) {
+      console.log("Rdio Ready!");
+      
+      //rdio.play('a997982');
+    });
   };
 
   if (document.cookie.indexOf('playback') == -1){
