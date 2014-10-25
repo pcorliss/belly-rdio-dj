@@ -64,3 +64,8 @@
 .controls {
   text-align: center;
 }
+
+.ui-menu-item > a > img {
+  width: 30px;
+  height: 30px;
+}
