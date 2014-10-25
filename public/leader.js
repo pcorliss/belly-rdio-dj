@@ -36,6 +36,8 @@ $(function() {
   $('#vol1').slider({
     max: 100,
     value: 100,
+    orientation: "vertical",
+    animate: "fast",
     change: changeVol,
     slide: changeVol
   });
@@ -43,6 +45,8 @@ $(function() {
   $('#vol2').slider({
     max: 100,
     value: 100,
+    orientation: "vertical",
+    animate: "fast",
     change: emitVol,
     slide: emitVol
   });
@@ -52,26 +56,26 @@ $(function() {
     socket.emit('follower', {cmd: 'vol', vol: $(e.target).val() / 100});
   });
 
-  $( "#track1" ).autocomplete({
-    minLength: 4,
-    //source: "/track_search_proxy",
-    source: function(req, resp){
-      $.ajax({
-        url: "/track_search_proxy",
-        data: { term: req.term },
-        success: function( data ) {
-          var results = JSON.parse(data).data;
-          var parsed = $.map(results, function(result){
-            return {
-              label: "<img src='"+ result.icon +"'>" + result.name,
-              value: result.id
-            }
-          });
-          resp(parsed);
-        }
-      });
-    }
+  //$( "#track1" ).autocomplete({
+    //minLength: 4,
+    ////source: "/track_search_proxy",
+    //source: function(req, resp){
+      //$.ajax({
+        //url: "/track_search_proxy",
+        //data: { term: req.term },
+        //success: function( data ) {
+          //var results = JSON.parse(data).data;
+          //var parsed = $.map(results, function(result){
+            //return {
+              //label: "<img src='"+ result.icon +"'>" + result.name,
+              //value: result.id
+            //}
+          //});
+          //resp(parsed);
+        //}
+      //});
+    //}
 
-  });
+  //});
 
 });

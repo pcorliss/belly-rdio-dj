@@ -40,9 +40,27 @@
   position: relative;
   width: 300px;
   height: 300px;
+  display: inline-block;
+}
+
+.ui-slider-vertical {
+  display: inline-block;
+  margin: 25px;
 }
 
 .speaker {
   width: 300px;
   height: 300px;
+}
+
+.ui-slider {
+  height: 200px;
+}
+
+.container {
+  display: inline-block;
+}
+
+.controls {
+  text-align: center;
 }
