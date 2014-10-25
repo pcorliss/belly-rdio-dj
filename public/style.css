@@ -19,8 +19,6 @@
   -webkit-animation-play-state:paused;
   -moz-animation-play-state:paused;
   animation-play-state:paused;
-  transition-duration: 0.2s;transition-property:transform;
-  -webkit-transition-duration: 0.2s;transition-property:transform;
 }
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
@@ -40,6 +38,11 @@
 
 .record_container {
   position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.speaker {
   width: 300px;
   height: 300px;
 }
