@@ -2,6 +2,14 @@ $(function() {
   console.log("Leader");
   var socket = io();
 
+  $('#start1').on('click', function(){
+    rdio.play('t7695718');
+  });
+
+  $('#stop1').on('click', function(){
+    rdio.stop();
+  });
+
   $('#start2').on('click', function(){
     console.log("Emitting");
     socket.emit('follower', {cmd: 'start', song: 't2888593'});
@@ -17,22 +25,27 @@ $(function() {
     socket.emit('follower', {cmd: 'vol', vol: $(e.target).slider('value') / 100});
   }
 
-  $('#vol').slider({
+  var changeVol = function(e) {
+    rdio.setVolume($(e.target).slider('value') / 100);
+  }
+
+  $('#vol1').slider({
+    max: 100,
+    value: 100,
+    change: changeVol,
+    slide: changeVol
+  });
+
+  $('#vol2').slider({
     max: 100,
     value: 100,
     change: emitVol,
     slide: emitVol
   });
 
-
   $('#vol').on('change', function(e){
     console.log("Emitting");
     socket.emit('follower', {cmd: 'vol', vol: $(e.target).val() / 100});
-  });
-
-  $('#vol100').on('click', function(){
-    console.log("Emitting");
-    socket.emit('follower', {cmd: 'vol', vol: 1.00});
   });
 
   $( "#track1" ).autocomplete({
