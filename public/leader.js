@@ -4,20 +4,24 @@ $(function() {
 
   $('#start1').on('click', function(){
     rdio.play('t7695718');
+    $("#track1 > .album").removeClass('paused');
   });
 
   $('#stop1').on('click', function(){
     rdio.stop();
+    $("#track1 > .album").addClass('paused');
   });
 
   $('#start2').on('click', function(){
     console.log("Emitting");
     socket.emit('follower', {cmd: 'start', song: 't2888593'});
+    $("#track2 > .album").removeClass('paused');
   });
 
   $('#stop2').on('click', function(){
     console.log("Emitting");
     socket.emit('follower', {cmd: 'stop'});
+    $("#track2 > .album").addClass('paused');
   });
 
   var emitVol = function(e) {
