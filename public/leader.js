@@ -1,54 +1,54 @@
 $(function() {
   var socket = io();
 
-  $('#start1').on('click', function(){
-    rdio.play(window.tracks[0].id);
-    $("#track1 > .album").removeClass('paused');
+  var play = function(id){
+    if(id == 1) {
+      rdio.play(window.tracks[0].id);
+      rdio.playing = true;
+    } else {
+      socket.emit('follower', {cmd: 'start', song: window.tracks[1].id});
+    }
+    $("#track" + id + " > .album").removeClass('paused');
+  };
+
+  var stop = function(id){
+    if(id == 1 && rdio.playing) {
+      rdio.stop();
+      rdio.playing = false;
+    } else {
+      socket.emit('follower', {cmd: 'stop'});
+    }
+    $("#track" + id + " > .album").addClass('paused');
+  };
+
+  $('.start').on('click', function(){
+    var id = $(this).data('track');
+    play(id);
   });
 
-  $('#stop1').on('click', function(){
-    rdio.stop();
-    $("#track1 > .album").addClass('paused');
+  $('.stop').on('click', function(){
+    var id = $(this).data('track');
+    stop(id);
   });
-
-  $('#start2').on('click', function(){
-    socket.emit('follower', {cmd: 'start', song: window.tracks[1].id});
-    $("#track2 > .album").removeClass('paused');
-  });
-
-  $('#stop2').on('click', function(){
-    socket.emit('follower', {cmd: 'stop'});
-    $("#track2 > .album").addClass('paused');
-  });
-
-  var emitVol = function(e) {
-    socket.emit('follower', {cmd: 'vol', vol: $(e.target).slider('value') / 100});
-  }
 
   var changeVol = function(e) {
-    rdio.setVolume($(e.target).slider('value') / 100);
+    var target = $(e.target)
+    var id = target.data('track');
+
+    if(id == 1){
+      rdio.setVolume(target.slider('value') / 100);
+    } else {
+      socket.emit('follower', {cmd: 'vol', vol: target.slider('value') / 100});
+    }
   }
 
-  $('#vol1').slider({
+  $('.vol').slider({
     max: 100,
     value: 100,
     orientation: "vertical",
     animate: "fast",
     change: changeVol,
     slide: changeVol
-  });
-
-  $('#vol2').slider({
-    max: 100,
-    value: 100,
-    orientation: "vertical",
-    animate: "fast",
-    change: emitVol,
-    slide: emitVol
-  });
-
-  $('#vol').on('change', function(e){
-    socket.emit('follower', {cmd: 'vol', vol: $(e.target).val() / 100});
   });
 
   var ajax_search = function(req, resp) {
@@ -77,6 +77,7 @@ $(function() {
     window.tracks[id - 1] = track;
     $( "#track" + id + "_lookup" ).val(track.name);
     $( "#track" + id + " > .album" ).attr('src', track.icon);
+    stop(id);
   };
 
   setTrack(1, {
@@ -91,8 +92,7 @@ $(function() {
     name: "More Than a Feeling"
   });
 
-  // TODO need to clear the val on focus
-  $(".lookup").autocomplete({
+  var settings = {
     minLength: 4,
     source: ajax_search,
     select: function( e, ui ) {
@@ -101,10 +101,17 @@ $(function() {
       setTrack(track_id, ui.item);
       return ui.item.name
     }
-  }).data("ui-autocomplete")._renderItem = function (ul, item) {
+  };
+
+  var renderItem = function (ul, item) {
     return $("<li />")
       .data("item.autocomplete", item)
       .append("<a><img src='" + item.icon + "' />" + item.name + "</a>")
       .appendTo(ul);
   };
+
+  $(".lookup").each(function () {
+    $(this).autocomplete(settings)
+      .data("ui-autocomplete")._renderItem = renderItem;
+  });
 });
