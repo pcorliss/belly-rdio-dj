@@ -21,10 +21,10 @@
         <img src="" class="album rotate paused">
       </div>
       <div class="controls">
-        <button class="start" data-track="1"><i class="fa fa-play"></i></button>
-        <button class="stop" data-track="1"><i class="fa fa-stop"></i></button>
-        <input id="track1_lookup" class="lookup" data-track="1">
-        <img class="connected" src="" data-track="1">
+        <button class="start" disabled="true" data-track="1"><i class="fa fa-play"></i></button>
+        <button class="stop" disabled="true" data-track="1"><i class="fa fa-stop"></i></button>
+        <input id="track1_lookup" disabled="true" class="lookup" data-track="1">
+        <div class="connect-light" id="track1_connect"></div>
       </div>
     </div>
     <div class="vol" data-track="1"></div>
@@ -39,7 +39,7 @@
         <button class="start" data-track="2"><i class="fa fa-play"></i></button>
         <button class="stop" data-track="2"><i class="fa fa-stop"></i></button>
         <input id="track2_lookup" class="lookup" data-track="2">
-        <img class="connected" src="" data-track="2">
+        <div class="connect-light" id="track2_connect"></div>
       </div>
       <div class="connect">
         Connect a speaker in an incognito window or another computer via the following URL.

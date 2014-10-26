@@ -75,3 +75,19 @@
   float: right;
   padding-top: 15px;
 }
+
+.connect-light {
+  width: 14px;
+  height: 14px;
+  background-color: #C00;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  border: 1px solid;
+}
+
+.connected {
+  background-color: #0C0;
+}
+
