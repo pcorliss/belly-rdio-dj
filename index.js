@@ -28,7 +28,8 @@ app.get('/', function(req, res){
 });
 
 // Need a unique way of generating URLs
-app.get('/follower', function(req, res){
+app.get('/follower/:id', function(req, res){
+  console.log("Follower:", req.params.id);
   res.sendFile(path.join(__dirname, 'follower.html'));
 });
 
@@ -55,6 +56,14 @@ http.listen(3000, function(){
 
 io.on('connection', function(socket){
   socket.on('follower', function(msg){
-    socket.broadcast.emit('follower', msg);
+    //socket.broadcast.emit('follower', msg);
+    if(msg.to){
+      socket.broadcast.to(msg.to).emit('follower', msg);
+    }
   });
+
+  socket.on('join', function (room) {
+    //socket.set('room', room, function() { console.log('room ' + room + ' saved'); } );
+    socket.join(room);
+  })
 });

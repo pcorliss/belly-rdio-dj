@@ -1,12 +1,15 @@
 $(function() {
   var socket = io();
+  socket.on('connect', function (data) {
+    socket.emit('join', 'asdf' );
+  });
 
   var play = function(id){
     if(id == 1) {
       rdio.play(window.tracks[0].id);
       rdio.playing = true;
     } else {
-      socket.emit('follower', {cmd: 'start', song: window.tracks[1].id});
+      socket.emit('follower', {to: 'asdf', cmd: 'start', song: window.tracks[1].id});
     }
     $("#track" + id + " > .album").removeClass('paused');
   };
@@ -16,7 +19,7 @@ $(function() {
       rdio.stop();
       rdio.playing = false;
     } else {
-      socket.emit('follower', {cmd: 'stop'});
+      socket.emit('follower', {to: 'asdf', cmd: 'stop'});
     }
     $("#track" + id + " > .album").addClass('paused');
   };
@@ -38,7 +41,7 @@ $(function() {
     if(id == 1){
       rdio.setVolume(target.slider('value') / 100);
     } else {
-      socket.emit('follower', {cmd: 'vol', vol: target.slider('value') / 100});
+      socket.emit('follower', {cmd: 'vol', to: 'asdf', vol: target.slider('value') / 100});
     }
   }
 
