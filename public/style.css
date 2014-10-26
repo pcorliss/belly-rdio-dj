@@ -69,3 +69,9 @@
   width: 30px;
   height: 30px;
 }
+
+.connect {
+  width: 250px;
+  float: right;
+  padding-top: 15px;
+}
