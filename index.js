@@ -50,8 +50,9 @@ app.get('/track_search_proxy', function(req, res){
   );
 });
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+var port = Number(process.env.PORT || 3000);
+http.listen(port, function(){
+  console.log('listening on *:' + port);
 });
 
 io.on('connection', function(socket){
