@@ -37,7 +37,8 @@ $(function() {
     if(id == 1 && window.rdio && rdio.playing) {
       rdio.stop();
       rdio.playing = false;
-    } else {
+    }
+    if(id == 2) {
       socket.emit('follower', {to: room, cmd: 'stop'});
     }
     $("#track" + id + " > .album").addClass('paused');
