@@ -34,7 +34,7 @@ $(function() {
   };
 
   var stop = function(id){
-    if(id == 1 && rdio.playing) {
+    if(id == 1 && window.rdio && rdio.playing) {
       rdio.stop();
       rdio.playing = false;
     } else {
