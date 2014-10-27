@@ -57,6 +57,7 @@ http.listen(3000, function(){
 io.on('connection', function(socket){
   socket.on('follower', function(msg){
     //socket.broadcast.emit('follower', msg);
+    console.log("Message:", msg);
     if(msg.to){
       socket.broadcast.to(msg.to).emit('follower', msg);
     }

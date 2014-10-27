@@ -1,9 +1,26 @@
+window.enableControls = function(track){
+  var side = track == 2 ? '.right' : '.left';
+  $(side + ' > .controls > .connect-light').addClass('connected');
+  $(side + ' > .controls > button').attr('disabled', false)
+  $(side + ' > .controls > input').attr('disabled', false)
+};
+
 $(function() {
   var room = Math.random().toString(36).substr(2, 4);
 
   var socket = io();
   socket.on('connect', function (data) {
     socket.emit('join', room );
+  });
+
+  socket.on('follower', function(msg){
+    console.log('message: ', msg);
+    switch(msg.cmd) {
+      case "connect":
+        console.log("Connection!");
+        enableControls(2);
+        break;
+    }
   });
 
   var play = function(id){
