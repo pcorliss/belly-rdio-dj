@@ -2,6 +2,10 @@
 
 Inspired by the [JS Audio Player](https://tech.bellycard.com/join/#javascript-audio-player) challenge on the Belly engineering page.
 
+## Demo
+
+http://belly-dj.herokuapp.com/
+
 ## Use
 
 Due to restrictions on Rdio's API you must start the second speaker
@@ -10,6 +14,8 @@ Additionally both sessions may not be logged in as the same user.
 
 The auto-complete depends on a sluggish search api, be patient when
 looking up different tracks.
+
+Don't load this over SSL or bad things can happen ;-)
 
 ## Local Development
 
