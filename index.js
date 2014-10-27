@@ -3,11 +3,9 @@ var app = express();
 var path = require('path');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var cookieParser = require('cookie-parser');
 var request = require('request');
 
 app.use("/public", express.static(path.join(__dirname, 'public')));
-app.use(cookieParser());
 
 var getToken = function(req, cb){
   request.post({
