@@ -4,6 +4,7 @@ var request = require('request');
 var sinon = require('sinon');
 var path = require('path');
 var fs = require('fs');
+var io = require('socket.io-client');
 var port = 3333;
 process.env.PORT = port;
 
@@ -157,5 +158,50 @@ describe("Server", function(){
     });
   });
 
-  describe("Sockets", function(){});
+  describe("Sockets", function(){
+    var client1 = null
+    var client2 = null
+
+    var options ={
+      transports: ['websocket'],
+      'force new connection': true
+    };
+
+    beforeEach(function (done) {
+      client1 = io.connect(testURL(''), options);
+      client2 = io.connect(testURL(''), options);
+      done();
+    });
+
+    afterEach(function (done) {
+      client1.disconnect();
+      client2.disconnect();
+      done();
+    });
+
+    it('should broadcast follower messages', function(done){
+      client2.on('connect', function(data){
+        client2.emit('join', 'asdf');
+        client2.emit('follower', {to: 'asdf', data: 'foo'});
+      });
+
+      client1.on('connect', function(data){
+        client1.emit('join', 'asdf');
+        client1.emit('follower', {to: 'asdf', data: 'foo'});
+      });
+
+      // There's no callback for emit events or the join operation
+      // So we simply test that at least one of the clients received the message
+      // Otherwise we end up with race conditions.
+      client1.on('follower', function(msg){
+        msg.should.eql({to: 'asdf', data: 'foo'});
+        done();
+      });
+
+      client2.on('follower', function(msg){
+        msg.should.eql({to: 'asdf', data: 'foo'});
+        done();
+      });
+    });
+  });
 });
