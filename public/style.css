@@ -71,7 +71,7 @@
 }
 
 .connect {
-  width: 250px;
+  width: 270px;
   float: right;
   padding-top: 15px;
 }
@@ -91,3 +91,7 @@
   background-color: #0C0;
 }
 
+body {
+  font-family: sans-serif;
+  font-size: 14px;
+}
