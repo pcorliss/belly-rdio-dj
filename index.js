@@ -27,7 +27,6 @@ app.get('/', function(req, res){
 
 // Need a unique way of generating URLs
 app.get('/follower/:id', function(req, res){
-  console.log("Follower:", req.params.id);
   res.sendFile(path.join(__dirname, 'follower.html'));
 });
 
@@ -40,10 +39,10 @@ app.get('/get_token', function(req, res){
 
 // This would be easier if the API used JSONP
 app.get('/track_search_proxy', function(req, res){
-  request(
+  request.get(
     'http://rdio-service.herokuapp.com/search?type=track&q=' + req.query.term,
     function (error, response, body) {
-      res.send(body)
+      res.send(body);
     }
   );
 });
